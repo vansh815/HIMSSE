@@ -18,13 +18,13 @@ const App = () => {
   return (
     <div id="app" className="d-flex flex-column h-100">
       <NavBar />
-      <Container className="flex-grow-1 mt-5">
+      <div className="flex-grow-1 mt-5">
         <Switch>
         <Route path="/" exact component={Home} />
           <PrivateRoute path="/profile" component={Profile} />
           <PrivateRoute path="/external-api" component={ExternalApi} />
         </Switch>
-      </Container>
+      </div>
       <Footer />
     </div>
   );

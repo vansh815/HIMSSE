@@ -1,11 +1,10 @@
-import React, { Fragment } from "react";
-
-import { Hero, Content } from "../components";
+import React from "react";
+import LandingPage from '../components/landing-page/LandingPage';
 
 const Home = () => (
-  <Fragment>
-    <Hero />
-  </Fragment>
+  <div className="landing">
+    <LandingPage />
+  </div>
 );
 
 export default Home;
