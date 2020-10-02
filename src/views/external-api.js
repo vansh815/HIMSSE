@@ -10,8 +10,9 @@ export const ExternalApi = () => {
   const { getAccessTokenSilently } = useAuth0();
 
   const callApi = async () => {
+
     try {
-      const response = await fetch(`${apiUrl}/api/public-message`);
+      const response = await fetch(`${apiUrl}/api/public`);
 
       const responseData = await response.json();
 
@@ -25,7 +26,7 @@ export const ExternalApi = () => {
     try {
       const token = await getAccessTokenSilently();
 
-      const response = await fetch(`${apiUrl}/api/private-message`, {
+      const response = await fetch(`${apiUrl}/api/private`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
