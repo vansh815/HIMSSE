@@ -10,7 +10,6 @@ import './LandingPage.css';
 const LandingPage = () => {
     return (
       <div id="body">
-        <Header />
         <About />
         <Card className='patients'
               img='https://www.pngkey.com/png/full/33-337638_medicine-logo-png-1-medical-logo.png'
