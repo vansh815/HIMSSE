@@ -3,7 +3,7 @@ import Navbar from './navbar/Navbar'
 import Footer from './navbar/Footer'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import Dashboard from './Dashboard'
-import UserProfile from './UserProfile'
+import UserProfile from '../views/profile'
 import Header from './navbar/landing-page/Header'
 
 function Main() {

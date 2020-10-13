@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import ChartistGraph from 'react-chartist'
 import Calendar from 'react-calendar'
 
 class Dashboard extends Component {

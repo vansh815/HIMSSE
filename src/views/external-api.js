@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, ButtonGroup, Container } from "react-bootstrap";
-import { Highlight } from "../components";
+import { Highlight } from "../components/navbar";
 import { useAuth0 } from "@auth0/auth0-react";
 
 export const ExternalApi = () => {
