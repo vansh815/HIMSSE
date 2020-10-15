@@ -23,8 +23,10 @@ class Dashboard extends Component {
               <div className="col-md-8">
                 <div className="card">
                   <div className="card-header ">
-                    <h4 className="card-title">TBD</h4>
-                    <p className="card-category">TBD</p>
+                    <form action = "">
+                      <input type = "text" placeholder="Search..." name="search"></input>
+                        <button type = "submit">Search</button>
+                      </form>
                   </div>
                 </div>
               </div>
