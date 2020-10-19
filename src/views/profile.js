@@ -101,6 +101,7 @@ const Profile = () => {
 	*/}
 
 	{/* About section for Doctors and Insurance */}
+	{/*
 	<Row className="card padding-bottom mb-3">
 		<p className="lead text-muted">{'\t'}About:</p>
 		<p className="lead text-muted text-right">
@@ -108,6 +109,7 @@ const Profile = () => {
 		<button onClick={getDescription}>Edit</button>
 		</p>
 	</Row>
+	*/}
 	
 	{/* Address information for Patients and Doctors */}
 	  <Row className="card padding-bottom mb-3">
