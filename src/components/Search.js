@@ -1,59 +1,55 @@
 import React, { Component } from 'react'
+import axios from 'axios'
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Search = (props) => {
+    const { getAccessTokenSilently } = useAuth0();
+    const token = getAccessTokenSilently();
     const [state, setState] = React.useState({
-        fname: '',
-        lname: '',
-        spec: '',
-        loc: ''
+        first_name: '',
+        last_name: '',
+        speciality: '',
+        city: ''
       });
 
     const handleSubmit = (event) => {
-        alert( state.fname + ' ' + state.lname + ' ' + state.spec + ' ' + state.loc);
+        alert( state.first_name + ' ' + state.last_name + ' ' + state.speciality + ' ' + state.city);
         event.preventDefault();
-        setState({fname:'',
-                 lname: '',
-                 spec:'',
-                loc: ''});
+        /*axios({
+            headers: {
+                authorization: 'Bearer ${token}'
+              },
+            method: 'get',
+            url: 'http://localhost:3010/doctor/details',
+            data: {
+              first_name: state.first_name,
+              last_name: state.last_name,
+              speciality: state.speciality,
+              city: state.city
+            }
+          });*/
+        setState({first_name:'',
+                 last_name: '',
+                 speciality:'',
+                city: ''});
+        console.log({token});
+        
 
     }
     
     const handleChange = (event) => {
-        //fname.value += event.target.value.toLowerCase();   
         setState({
             ...state,
-            [event.target.name]: event.target.value.toLowerCase()
+            [event.target.name]: event.target.value
         });
     }
-    /*
-    const lhandleChange = (event) =>{
-        //lname.value += event.target.value.toLowerCase();
-        setState({
-            lname: event.target.value.toLowerCase()
-        });
-    }
-    
-    const lohandleChange = (event) => {
-        setState({
-            loc: event.target.value.toLowerCase()
-        });
-    }
-    const shandleChange = (event) => {
-        setState({
-            spec: event.target.value.toLowerCase()
-        });
-    }*/
-    /*
-    const renamePlaceholder = (state) => {
-        if state.fname =  
-
-    }*/
+   
     return (
         <form onSubmit={handleSubmit}>
-            <input type = "text" placeholder="Enter first name" name="fname" value = {state.fname} onChange={handleChange} />
-            <input type = "text" placeholder="Enter last name..." name="lname" value = {state.lname} onChange={handleChange} />
-            <input type = "text" placeholder="Enter specialization..." name="spec" value = {state.spec} onChange={handleChange} />
-            <input type = "text" placeholder="Enter location..." name="loc" value = {state.loc} onChange={handleChange} />
+            <input type = "text" placeholder="Enter first name" name="first_name" value = {state.first_name} onChange={handleChange} />
+            <input type = "text" placeholder="Enter last name..." name="last_name" value = {state.last_name} onChange={handleChange} />
+            <input type = "text" placeholder="Enter specialization..." name="speciality" value = {state.speciality} onChange={handleChange} />
+            <input type = "text" placeholder="Enter location..." name="city" value = {state.city} onChange={handleChange} />
             <button type = "submit" value = "submit">Search</button> 
         </form>
     )
