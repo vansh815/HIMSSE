@@ -15,7 +15,7 @@ const Search = (props) => {
     const handleSubmit = (event) => {
         alert( state.first_name + ' ' + state.last_name + ' ' + state.speciality + ' ' + state.city);
         event.preventDefault();
-        /*axios({
+        axios({
             headers: {
                 authorization: 'Bearer ${token}'
               },
@@ -27,7 +27,7 @@ const Search = (props) => {
               speciality: state.speciality,
               city: state.city
             }
-          });*/
+          });
         setState({first_name:'',
                  last_name: '',
                  speciality:'',
