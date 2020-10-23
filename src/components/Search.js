@@ -15,19 +15,20 @@ const Search = (props) => {
     const handleSubmit = (event) => {
         alert( state.first_name + ' ' + state.last_name + ' ' + state.speciality + ' ' + state.city);
         event.preventDefault();
-        axios({
+        const searchquerry = axios({
             headers: {
                 authorization: 'Bearer ${token}'
               },
             method: 'get',
             url: 'http://localhost:3010/doctor/details',
-            data: {
+            params: {
               first_name: state.first_name,
               last_name: state.last_name,
               speciality: state.speciality,
               city: state.city
             }
           });
+        console.log(searchquerry);
         setState({first_name:'',
                  last_name: '',
                  speciality:'',
