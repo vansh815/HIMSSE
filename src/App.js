@@ -23,7 +23,7 @@ const App = () => {
       <div className="flex-grow-1 mt-5">
         <Switch>
         <Route path="/" exact component={Home} />
-          <Route path="/dashboard" component={Dashboard} />
+          <PrivateRoute path="/dashboard" component={Dashboard} />
           <PrivateRoute path="/profile" component={Profile} />
           <PrivateRoute path="/external-api" component={ExternalApi} />
         </Switch>
