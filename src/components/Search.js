@@ -7,18 +7,24 @@ function results (data, fullSearch)
       if (fullSearch == '   '){
         fullSearch = "nothing"
       }
-      if (len == 0){
-          return "Your search of " + fullSearch + " returned no results"
-      }
-      let resString = "Your search of " + fullSearch + " returned " + len + " results <p>"
+      
+      let searchCards = document.getElementById("demo");
+      
+      let userResults = `<h1>Your search of ${fullSearch} returned ${len} results.</h1>`;
+      searchCards.insertAdjacentHTML("afterbegin", userResults);
       for(let i = 0; i < len; i++){
         let res = data[i]
-        resString += "" + res.first_name + " " + res.last_name + " specialty: " + res.speciality + " location: " + res.city + "<p>";
+        // example url
+        let resString = `<div class="searchData" data-index="${res._id}"><a href="https://www.youtube.com/watch?v=DLzxrzFCyOs" target="_blank"><h2>${res.first_name} ${res.last_name} - ${res.speciality} in ${res.city}</h2></a></div>`;
+
+        searchCards.insertAdjacentHTML("beforeend", resString);
+        //makeCard(data)
+      
       }
-      return resString
+      
     }
+
 const Search = (props) => {
-    let text = ""
     const { getAccessTokenSilently } = useAuth0();
     const token = getAccessTokenSilently();
     const [state, setState] = React.useState({
@@ -31,9 +37,11 @@ const Search = (props) => {
     
     
     const handleSubmit = (event) => {
+      let searchBox = document.getElementById("demo");
+      searchBox.innerHTML = "";
         var fullSearch = state.first_name + ' ' + state.last_name + ' ' + state.speciality + ' ' + state.city;
         event.preventDefault();
-        const searchquerry = axios({
+        const searchquery = axios({
             headers: {
                 authorization: 'Bearer ${token}'
               },
@@ -46,7 +54,11 @@ const Search = (props) => {
               city: state.city
             }
           });
-        searchquerry.then(result => {text = results(result.data, fullSearch); console.log(result); document.getElementById("demo").innerHTML = text;  })
+        searchquery.then(result => {
+          results(result.data, fullSearch); 
+          console.log(result); 
+          // document.getElementById("demo").innerHTML = text; 
+         })
         .catch(error => { console.error(error); })
 
         setState({first_name:'',
@@ -73,7 +85,7 @@ const Search = (props) => {
             <button type = "submit" value = "submit">Search</button> 
         </form>
         {/* search results here*/}
-        <p id = "demo"></p>
+        <div id = "demo"></div>
         
         </div>
     )
