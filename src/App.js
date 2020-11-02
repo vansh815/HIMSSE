@@ -7,6 +7,7 @@ import { NavBar, Footer, Loading, PrivateRoute } from "./components/navbar";
 import Header from "./components/navbar/landing-page/Header";
 import { Home, Profile, ExternalApi } from "./views";
 import Dashboard from './components/Dashboard'
+import UserForm from './views/UserForm'
 import "./App.css";
 
 const App = () => {
@@ -24,7 +25,7 @@ const App = () => {
         <Switch>
         <Route path="/" exact component={Home} />
           <PrivateRoute path="/dashboard" component={Dashboard} />
-          <PrivateRoute path="/profile" component={Profile} />
+          <PrivateRoute path="/profile" component={UserForm} />
           <PrivateRoute path="/external-api" component={ExternalApi} />
         </Switch>
       </div>
