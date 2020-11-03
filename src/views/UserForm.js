@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Button } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 
 function UserForm() {
@@ -97,7 +97,7 @@ function UserForm() {
                             <label for="zip_code">Zip Code:</label><br />
                             <input type="number" name="zip_code" value={state.zip_code} onChange={handleChange} /><br /><br />
                         
-                            <input type="submit" value="Submit" />
+                            <Button variant="primary" type="submit">Submit</Button>{' '}
                         </form>
                     </Col>
                 </Row>
@@ -132,7 +132,7 @@ function UserForm() {
                             <label for="specialty">Specialty:</label><br />
                             <input type="text" name="specialty" value={state.specialty} onChange={handleChange} /><br /><br />
                         
-                            <input type="submit" value="Submit" />
+                            <Button variant="primary" type="submit">Submit</Button>{' '}
                         </form>
                     </Col>
                 </Row>
@@ -167,7 +167,7 @@ function UserForm() {
                             <label for="phone">Phone:</label><br />
                             <input type="tel" name="phone" value={state.phone} onChange={handleChange} /><br /><br />
                         
-                            <input type="submit" value="Submit" />
+                            <Button variant="primary" type="submit">Submit</Button>{' '}
                         </form>
                     </Col>
                 </Row>
