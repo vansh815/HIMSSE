@@ -1,24 +1,31 @@
-import React, { Component } from 'react'
+import React from 'react'
 import axios from 'axios'
 import { useAuth0 } from "@auth0/auth0-react";
+import Button from 'react-bootstrap/Button';
+import "./Search.css";
 function results (data, fullSearch)
     {
       let len = data.length
       if (fullSearch == '   '){
         fullSearch = "nothing"
       }
-      if (len == 0){
-          return "Your search of " + fullSearch + " returned no results"
-      }
-      let resString = "Your search of " + fullSearch + " returned " + len + " results <p>"
+      
+      let searchCards = document.getElementById("demo");
+      
+      let userResults = `<h1>Your search of ${fullSearch} returned ${len} results.</h1>`;
+      searchCards.insertAdjacentHTML("afterbegin", userResults);
       for(let i = 0; i < len; i++){
         let res = data[i]
-        resString += "" + res.first_name + " " + res.last_name + " specialty: " + res.speciality + " location: " + res.city + "<p>";
+        // example url
+        let resString = `<div class="searchData" data-index="${res._id}"><a href="https://www.google.com" target="_blank">${res.first_name} ${res.last_name} - ${res.speciality} in ${res.city}</a></div>`;
+
+        searchCards.insertAdjacentHTML("beforeend", resString);
+      
       }
-      return resString
+      
     }
+
 const Search = (props) => {
-    let text = ""
     const { getAccessTokenSilently } = useAuth0();
     const token = getAccessTokenSilently();
     const [state, setState] = React.useState({
@@ -31,9 +38,11 @@ const Search = (props) => {
     
     
     const handleSubmit = (event) => {
+      let searchBox = document.getElementById("demo");
+      searchBox.innerHTML = "";
         var fullSearch = state.first_name + ' ' + state.last_name + ' ' + state.speciality + ' ' + state.city;
         event.preventDefault();
-        const searchquerry = axios({
+        const searchquery = axios({
             headers: {
                 authorization: 'Bearer ${token}'
               },
@@ -46,7 +55,11 @@ const Search = (props) => {
               city: state.city
             }
           });
-        searchquerry.then(result => {text = results(result.data, fullSearch); console.log(result); document.getElementById("demo").innerHTML = text;  })
+        searchquery.then(result => {
+          results(result.data, fullSearch); 
+          console.log(result); 
+          // document.getElementById("demo").innerHTML = text; 
+         })
         .catch(error => { console.error(error); })
 
         setState({first_name:'',
@@ -64,16 +77,16 @@ const Search = (props) => {
     }
    
     return (
-      <div className= "searchResults">
+      <div class= "searchResults">
         <form onSubmit={handleSubmit}>
             <input type = "text" placeholder="Enter first name" name="first_name" value = {state.first_name} onChange={handleChange} />
             <input type = "text" placeholder="Enter last name..." name="last_name" value = {state.last_name} onChange={handleChange} />
             <input type = "text" placeholder="Enter specialization..." name="speciality" value = {state.speciality} onChange={handleChange} />
             <input type = "text" placeholder="Enter location..." name="city" value = {state.city} onChange={handleChange} />
-            <button type = "submit" value = "submit">Search</button> 
+            <Button variant="primary" size="sm" type="submit">Submit</Button>
         </form>
         {/* search results here*/}
-        <p id = "demo"></p>
+        <div id = "demo"></div>
         
         </div>
     )

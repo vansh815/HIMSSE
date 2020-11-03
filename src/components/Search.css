@@ -1,0 +1,16 @@
+#demo {
+    color: var(--color-blue-primary);
+}
+.searchData{
+    background-color: white;
+    margin: 10px; 
+    font-size: 30px;
+    width: 50%;
+    border: 1px solid var(--color-blue-primary);
+   
+  }
+a {
+    color: black;
+    background-color: transparent;
+    text-decoration: none;
+  }
