@@ -1,6 +1,8 @@
-import React, { Component } from 'react'
+import React from 'react'
 import axios from 'axios'
 import { useAuth0 } from "@auth0/auth0-react";
+import Button from 'react-bootstrap/Button';
+import "./Search.css";
 function results (data, fullSearch)
     {
       let len = data.length
@@ -15,10 +17,9 @@ function results (data, fullSearch)
       for(let i = 0; i < len; i++){
         let res = data[i]
         // example url
-        let resString = `<div class="searchData" data-index="${res._id}"><a href="https://www.youtube.com/watch?v=DLzxrzFCyOs" target="_blank"><h2>${res.first_name} ${res.last_name} - ${res.speciality} in ${res.city}</h2></a></div>`;
+        let resString = `<div class="searchData" data-index="${res._id}"><a href="https://www.google.com" target="_blank">${res.first_name} ${res.last_name} - ${res.speciality} in ${res.city}</a></div>`;
 
         searchCards.insertAdjacentHTML("beforeend", resString);
-        //makeCard(data)
       
       }
       
@@ -76,13 +77,13 @@ const Search = (props) => {
     }
    
     return (
-      <div className= "searchResults">
+      <div class= "searchResults">
         <form onSubmit={handleSubmit}>
             <input type = "text" placeholder="Enter first name" name="first_name" value = {state.first_name} onChange={handleChange} />
             <input type = "text" placeholder="Enter last name..." name="last_name" value = {state.last_name} onChange={handleChange} />
             <input type = "text" placeholder="Enter specialization..." name="speciality" value = {state.speciality} onChange={handleChange} />
             <input type = "text" placeholder="Enter location..." name="city" value = {state.city} onChange={handleChange} />
-            <button type = "submit" value = "submit">Search</button> 
+            <Button variant="primary" size="sm" type="submit">Submit</Button>
         </form>
         {/* search results here*/}
         <div id = "demo"></div>
