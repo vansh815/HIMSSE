@@ -35,39 +35,48 @@ const Search = (props) => {
         city: ''
       });
     
+      const callSecureApi = async (query) => {
+        const token = await getAccessTokenSilently();
+        const apiUrl = process.env.REACT_APP_API_URL;
+        console.log(query)
+        const searchquery = await axios({
+          headers: {
+              authorization: `Bearer ${token}`
+            },
+          method: 'get',
+          
+          url: `${apiUrl}/doctor/details`,
+          params : query
+        })
+        return searchquery
+      }
     
-    
-    const handleSubmit = (event) => {
-      let searchBox = document.getElementById("demo");
-      searchBox.innerHTML = "";
-        var fullSearch = state.first_name + ' ' + state.last_name + ' ' + state.speciality + ' ' + state.city;
-        event.preventDefault();
-        const searchquery = axios({
-            headers: {
-                authorization: 'Bearer ${token}'
-              },
-            method: 'get',
-            url: 'http://localhost:3010/doctor/details',
-            params: {
-              first_name: state.first_name,
-              last_name: state.last_name,
-              speciality: state.speciality,
-              city: state.city
-            }
-          });
-        searchquery.then(result => {
-          results(result.data, fullSearch); 
-          console.log(result); 
-          // document.getElementById("demo").innerHTML = text; 
-         })
-        .catch(error => { console.error(error); })
-
-        setState({first_name:'',
-                 last_name: '',
-                 speciality:'',
-                city: ''});        
-
-    }
+      const handleSubmit = (event) => {
+        let searchBox = document.getElementById("demo");
+        searchBox.innerHTML = "";
+          var fullSearch = state.first_name + ' ' + state.last_name + ' ' + state.speciality + ' ' + state.city;
+          event.preventDefault();
+          let query=  {
+            first_name: state.first_name,
+            last_name: state.last_name,
+            speciality: state.speciality,
+            city: state.city
+          }
+          const searchquery = callSecureApi(query);
+          
+          searchquery.then(result => {
+            results(result.data, fullSearch); 
+            console.log(result); 
+            // document.getElementById("demo").innerHTML = text; 
+           })
+          .catch(error => { console.error(error); })
+  
+          setState({first_name:'',
+                   last_name: '',
+                   speciality:'',
+                  city: ''});        
+  
+      }
     
     const handleChange = (event) => {
         setState({

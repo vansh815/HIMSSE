@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
+import { queryHelpers } from '@testing-library/react';
 
 function UserForm() {
     const { user } = useAuth0();
     const { name, picture, email } = user;
-
+    const apiUrl = process.env.REACT_APP_API_URL;
     const { getAccessTokenSilently } = useAuth0();
-    const token = getAccessTokenSilently();
     const [state, setState] = React.useState({
         role: 'patient',
         first_name: '',
@@ -22,6 +22,7 @@ function UserForm() {
         specialty: '',
         phone: ''
     });
+    const [query1,setQuery] = React.useState("")
 
     const handleRoleChange = (event) => {
         setState({
@@ -29,9 +30,74 @@ function UserForm() {
             role: event.target.value
         });
     }
+    const callSecureApi = async (query) => {
+        const token = await getAccessTokenSilently();
+        fetch(`${apiUrl}/user/details` , {
+            method : "POST",
+            headers : {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type" : "application/json",
+            },
+            body: query,
+        }).then((response) => {
+            if (!response.ok){
+                console.log("Error");
+            } else{
+                console.log("Success");
+            }
+        });
+    };
 
-    const handleSubmit = (event) => {
+    const handleSubmit_patient = (event) => {
         event.preventDefault();
+        let query = JSON.stringify({
+            first_name: state.first_name,
+            last_name: state.last_name,
+            email : state.user_email, 
+            street_name : state.street_name,
+            city: state.city, 
+            zip_code : state.zip_code,
+            role : "patient",
+        });
+        callSecureApi(query);
+        alert("First Name: " + state.first_name + 
+        "\nLast Name: " + state.last_name);
+    };
+
+
+    const handleSubmit_doctor = (event) => {
+        event.preventDefault();
+        let query = JSON.stringify({
+            first_name: state.first_name,
+            last_name: state.last_name,
+            email : state.user_email, 
+            street_name : state.street_name,
+            city: state.city, 
+            zip_code : state.zip_code,
+            role : "doctor",
+            specialty : state.specialty
+        });
+        
+        callSecureApi(query);
+
+        alert("First Name: " + state.first_name + 
+        "\nLast Name: " + state.last_name);
+    }
+    const handleSubmit_insurance_manager = (event) => {
+        event.preventDefault();
+        let query = JSON.stringify({
+            first_name: state.first_name,
+            last_name: state.last_name,
+            email : state.user_email, 
+            street_name : state.street_name,
+            city: state.city, 
+            zip_code : state.zip_code,
+            role : "insurance_manager",
+            specialty : state.specialty
+        });
+        
+        callSecureApi(query);
+
         alert("First Name: " + state.first_name + 
         "\nLast Name: " + state.last_name);
     }
@@ -75,7 +141,7 @@ function UserForm() {
                 <Row>
                     Patient 
                     <Col>
-                        <form onSubmit={handleSubmit}>
+                        <form onSubmit={handleSubmit_patient}>
                             <label for="first_name">First name:</label><br />
                             <input type="text" name="first_name" value={state.first_name} onChange={handleChange} /><br /><br />
                             
@@ -97,7 +163,7 @@ function UserForm() {
                             <label for="zip_code">Zip Code:</label><br />
                             <input type="number" name="zip_code" value={state.zip_code} onChange={handleChange} /><br /><br />
                         
-                            <Button variant="primary" type="submit">Submit</Button>{' '}
+                            <input type="submit" value="Submit" />
                         </form>
                     </Col>
                 </Row>
@@ -107,7 +173,7 @@ function UserForm() {
                 <Row>
                     Doctor <br />
                     <Col>
-                        <form onSubmit={handleSubmit}>
+                        <form onSubmit={handleSubmit_doctor}>
                             <label for="first_name">First name:</label><br />
                             <input type="text" name="first_name" value={state.first_name} onChange={handleChange} /><br /><br />
                             
@@ -132,7 +198,7 @@ function UserForm() {
                             <label for="specialty">Specialty:</label><br />
                             <input type="text" name="specialty" value={state.specialty} onChange={handleChange} /><br /><br />
                         
-                            <Button variant="primary" type="submit">Submit</Button>{' '}
+                            <input type="submit" value="Submit" />
                         </form>
                     </Col>
                 </Row>
@@ -142,7 +208,7 @@ function UserForm() {
                 <Row>
                     Insurance <br />
                     <Col>
-                        <form onSubmit={handleSubmit}>
+                        <form onSubmit={handleSubmit_insurance_manager}>
                             <label for="first_name">First name:</label><br />
                             <input type="text" name="first_name" value={state.first_name} onChange={handleChange} /><br /><br />
                             
@@ -167,7 +233,7 @@ function UserForm() {
                             <label for="phone">Phone:</label><br />
                             <input type="tel" name="phone" value={state.phone} onChange={handleChange} /><br /><br />
                         
-                            <Button variant="primary" type="submit">Submit</Button>{' '}
+                            <input type="submit" value="Submit" />
                         </form>
                     </Col>
                 </Row>
