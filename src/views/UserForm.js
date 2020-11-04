@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Button, Form, Card } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 import { queryHelpers } from '@testing-library/react';
+import "./UserForm.css";
 
 function UserForm() {
     const { user } = useAuth0();
@@ -111,7 +112,8 @@ function UserForm() {
 
     return (
         <Container className="mb-5">
-            <Row className="align-items-center profile-header mb-5 text-center text-md-left border-bottom border-dark">
+            <div className="align-items-center">
+            <Row className="align-items-center profile-header mb-4 text-center text-md-left border-bottom border-dark">
                 <Col md={2}>
                 <img
                     src={picture}
@@ -120,125 +122,233 @@ function UserForm() {
 
                 />
                 </Col>
-                <Col md>
-                <h2>{name}</h2>
-                <p className="lead text-muted">{email}</p>
+                <Col md className="mb-3">
+                    <h2>{name}</h2>
+                    <p className="lead text-muted">{email}</p>
 
-                <label for="roles">Choose a role: </label>
-                <select name="roles" id="roles" onChange={handleRoleChange}>
-                    <option value="patient">Patient</option>
-                    <option value="doctor">Doctor</option>
-                    <option value="insurance">Insurance</option>
-                </select>
+                    <Form.Control as="select" name="roles" id="roles" onChange={handleRoleChange}  >
+                        <option value="patient">Patient</option>
+                        <option value="doctor">Doctor</option>
+                        <option value="insurance">Insurance</option>
+                    </Form.Control>
                 </Col>
             </Row>
+            </div>
 
-            <Row className="padding-bottom mb-5">
-                <h4>Account Information</h4>
-            </Row>
+            <Col md="8" className="user-form">
+                <Card className="card-user">
+                    <Card.Header> 
+                        <Card.Title tag="h4">Account Information</Card.Title>
+                    </Card.Header>
 
-            {state.role == 'patient' && 
-                <Row>
-                    Patient 
-                    <Col>
-                        <form onSubmit={handleSubmit_patient}>
-                            <label for="first_name">First name:</label><br />
-                            <input type="text" name="first_name" value={state.first_name} onChange={handleChange} /><br /><br />
-                            
-                            <label for="last_name">Last name:</label><br />
-                            <input type="text" name="last_name" value={state.last_name} onChange={handleChange} /><br /><br />
+                    {state.role == 'patient' && 
+                        <Form onSubmit={handleSubmit_patient} className="ml-2 mb-2 mr-2">
+                            <Row className="mt-1">
+                                <Col>
+                                    <Form.Group>
+                                        <Form.Label for="first_name">First name:</Form.Label>
+                                        <Form.Control type="text" name="first_name" value={state.first_name} onChange={handleChange} />
+                                    </Form.Group>
+                                </Col>
+                                
+                                <Col>
+                                    <Form.Group>
+                                        <Form.Label for="last_name">Last name:</Form.Label>
+                                        <Form.Control type="text" name="last_name" value={state.last_name} onChange={handleChange} />
+                                    </Form.Group>
+                                </Col>
+                            </Row>
 
-                            <label for="user_email">Email:</label><br />
-                            <input type="email" name="user_email" value={state.user_email} onChange={handleChange} /><br /><br />
+                            <Row className="mt-1">
+                                <Col>
+                                    <Form.Group>
+                                        <Form.Label for="user_email">Email:</Form.Label>
+                                        <Form.Control type="email" name="user_email" value={state.user_email} onChange={handleChange} />
+                                    </Form.Group>
+                                </Col>
+                            </Row>
 
-                            <label for="street_name">Street Name:</label><br />
-                            <input type="text" name="street_name" value={state.street_name} onChange={handleChange} /><br /><br />
+                            <Row className="mt-1">
+                                <Col>
+                                    <Form.Group>
+                                        <Form.Label for="street_name">Address:</Form.Label>
+                                        <Form.Control type="text" name="street_name" value={state.street_name} onChange={handleChange} />
+                                    </Form.Group>
+                                </Col>
 
-                            <label for="city">City:</label><br />
-                            <input type="text" name="city" value={state.city} onChange={handleChange} /><br /><br />
+                                <Col>
+                                    <Form.Group>
+                                        <Form.Label for="city">City:</Form.Label>
+                                        <Form.Control type="text" name="city" value={state.city} onChange={handleChange} />
+                                    </Form.Group>
+                                </Col>
+                            </Row>
 
-                            <label for="state_name">State:</label><br />
-                            <input type="text" name="state_name" value={state.state_name} onChange={handleChange} /><br /><br />
+                            <Row>
+                                <Col>
+                                    <Form.Group>
+                                        <Form.Label for="state_name">State:</Form.Label>
+                                        <Form.Control type="text" name="state_name" value={state.state_name} onChange={handleChange} />
+                                    </Form.Group>
+                                </Col>
 
-                            <label for="zip_code">Zip Code:</label><br />
-                            <input type="number" name="zip_code" value={state.zip_code} onChange={handleChange} /><br /><br />
+                                <Col>
+                                    <Form.Group>
+                                        <Form.Label for="zip_code">Zip Code:</Form.Label>
+                                        <Form.Control type="number" name="zip_code" value={state.zip_code} onChange={handleChange} />
+                                    </Form.Group>
+                                </Col>
+                            </Row>
                         
-                            <input type="submit" value="Submit" />
-                        </form>
-                    </Col>
-                </Row>
-            }
+                            <Button variant="primary" type="submit">Submit</Button>{' '}
+                        </Form>
+                    }
 
-            {state.role == 'doctor' && 
-                <Row>
-                    Doctor <br />
-                    <Col>
-                        <form onSubmit={handleSubmit_doctor}>
-                            <label for="first_name">First name:</label><br />
-                            <input type="text" name="first_name" value={state.first_name} onChange={handleChange} /><br /><br />
+                    {state.role == 'doctor' && 
+                        <Form onSubmit={handleSubmit_doctor} className="ml-2 mb-2 mr-2">
+                        <Row className="mt-1">
+                            <Col>
+                                <Form.Group>
+                                    <Form.Label for="first_name">First name:</Form.Label>
+                                    <Form.Control type="text" name="first_name" value={state.first_name} onChange={handleChange} />
+                                </Form.Group>
+                            </Col>
                             
-                            <label for="last_name">Last name:</label><br />
-                            <input type="text" name="last_name" value={state.last_name} onChange={handleChange} /><br /><br />
+                            <Col>
+                                <Form.Group>
+                                    <Form.Label for="last_name">Last name:</Form.Label>
+                                    <Form.Control type="text" name="last_name" value={state.last_name} onChange={handleChange} />
+                                </Form.Group>
+                            </Col>
+                        </Row>
 
-                            <label for="user_email">Email:</label><br />
-                            <input type="email" name="user_email" value={state.user_email} onChange={handleChange} /><br /><br />
+                        <Row className="mt-1">
+                            <Col>
+                                <Form.Group>
+                                    <Form.Label for="user_email">Email:</Form.Label>
+                                    <Form.Control type="email" name="user_email" value={state.user_email} onChange={handleChange} />
+                                </Form.Group>
+                            </Col>
+                        </Row>
 
-                            <label for="street_name">Street Name:</label><br />
-                            <input type="text" name="street_name" value={state.street_name} onChange={handleChange} /><br /><br />
+                        <Row className="mt-1">
+                            <Col>
+                                <Form.Group>
+                                    <Form.Label for="street_name">Address:</Form.Label>
+                                    <Form.Control type="text" name="street_name" value={state.street_name} onChange={handleChange} />
+                                </Form.Group>
+                            </Col>
 
-                            <label for="city">City:</label><br />
-                            <input type="text" name="city" value={state.city} onChange={handleChange} /><br /><br />
+                            <Col>
+                                <Form.Group>
+                                    <Form.Label for="city">City:</Form.Label>
+                                    <Form.Control type="text" name="city" value={state.city} onChange={handleChange} />
+                                </Form.Group>
+                            </Col>
+                        </Row>
 
-                            <label for="state_name">State:</label><br />
-                            <input type="text" name="state_name" value={state.state_name} onChange={handleChange} /><br /><br />
+                        <Row>
+                            <Col>
+                                <Form.Group>
+                                    <Form.Label for="state_name">State:</Form.Label>
+                                    <Form.Control type="text" name="state_name" value={state.state_name} onChange={handleChange} />
+                                </Form.Group>
+                            </Col>
 
-                            <label for="zip_code">Zip Code:</label><br />
-                            <input type="number" name="zip_code" value={state.zip_code} onChange={handleChange} /><br /><br />
+                            <Col>
+                                <Form.Group>
+                                    <Form.Label for="zip_code">Zip Code:</Form.Label>
+                                    <Form.Control type="number" name="zip_code" value={state.zip_code} onChange={handleChange} />
+                                </Form.Group>
+                            </Col>
+                        </Row>
 
-                            <label for="specialty">Specialty:</label><br />
-                            <input type="text" name="specialty" value={state.specialty} onChange={handleChange} /><br /><br />
-                        
-                            <input type="submit" value="Submit" />
-                        </form>
-                    </Col>
-                </Row>
-            }
+                        <Row>
+                            <Col>
+                                <Form.Group>
+                                    <Form.Label for="specialty">Specialty:</Form.Label>
+                                    <Form.Control type="text" name="specialty" value={state.specialty} onChange={handleChange} />
+                                </Form.Group>
+                            </Col>
+                        </Row>
+                    
+                        <Button variant="primary" type="submit">Submit</Button>{' '}
+                    </Form>
+                    }
 
-            {state.role == 'insurance' && 
-                <Row>
-                    Insurance <br />
-                    <Col>
-                        <form onSubmit={handleSubmit_insurance_manager}>
-                            <label for="first_name">First name:</label><br />
-                            <input type="text" name="first_name" value={state.first_name} onChange={handleChange} /><br /><br />
+                    {state.role == 'insurance' && 
+                        <Form onSubmit={handleSubmit_insurance_manager} className="ml-2 mb-2 mr-2">
+                        <Row className="mt-1">
+                            <Col>
+                                <Form.Group>
+                                    <Form.Label for="first_name">First name:</Form.Label>
+                                    <Form.Control type="text" name="first_name" value={state.first_name} onChange={handleChange} />
+                                </Form.Group>
+                            </Col>
                             
-                            <label for="last_name">Last name:</label><br />
-                            <input type="text" name="last_name" value={state.last_name} onChange={handleChange} /><br /><br />
+                            <Col>
+                                <Form.Group>
+                                    <Form.Label for="last_name">Last name:</Form.Label>
+                                    <Form.Control type="text" name="last_name" value={state.last_name} onChange={handleChange} />
+                                </Form.Group>
+                            </Col>
+                        </Row>
 
-                            <label for="user_email">Email:</label><br />
-                            <input type="email" name="user_email" value={state.user_email} onChange={handleChange} /><br /><br />
+                        <Row className="mt-1">
+                            <Col>
+                                <Form.Group>
+                                    <Form.Label for="user_email">Email:</Form.Label>
+                                    <Form.Control type="email" name="user_email" value={state.user_email} onChange={handleChange} />
+                                </Form.Group>
+                            </Col>
+                        </Row>
 
-                            <label for="street_name">Street Name:</label><br />
-                            <input type="text" name="street_name" value={state.street_name} onChange={handleChange} /><br /><br />
+                        <Row className="mt-1">
+                            <Col>
+                                <Form.Group>
+                                    <Form.Label for="street_name">Address:</Form.Label>
+                                    <Form.Control type="text" name="street_name" value={state.street_name} onChange={handleChange} />
+                                </Form.Group>
+                            </Col>
 
-                            <label for="city">City:</label><br />
-                            <input type="text" name="city" value={state.city} onChange={handleChange} /><br /><br />
+                            <Col>
+                                <Form.Group>
+                                    <Form.Label for="city">City:</Form.Label>
+                                    <Form.Control type="text" name="city" value={state.city} onChange={handleChange} />
+                                </Form.Group>
+                            </Col>
+                        </Row>
 
-                            <label for="state_name">State:</label><br />
-                            <input type="text" name="state_name" value={state.state_name} onChange={handleChange} /><br /><br />
+                        <Row>
+                            <Col>
+                                <Form.Group>
+                                    <Form.Label for="state_name">State:</Form.Label>
+                                    <Form.Control type="text" name="state_name" value={state.state_name} onChange={handleChange} />
+                                </Form.Group>
+                            </Col>
 
-                            <label for="zip_code">Zip Code:</label><br />
-                            <input type="number" name="zip_code" value={state.zip_code} onChange={handleChange} /><br /><br />
+                            <Col>
+                                <Form.Group>
+                                    <Form.Label for="zip_code">Zip Code:</Form.Label>
+                                    <Form.Control type="number" name="zip_code" value={state.zip_code} onChange={handleChange} />
+                                </Form.Group>
+                            </Col>
+                        </Row>
 
-                            <label for="phone">Phone:</label><br />
-                            <input type="tel" name="phone" value={state.phone} onChange={handleChange} /><br /><br />
-                        
-                            <input type="submit" value="Submit" />
-                        </form>
-                    </Col>
-                </Row>
-            }
-
+                        <Row>
+                            <Col>
+                                <Form.Group>
+                                    <Form.Label for="phone">Phone:</Form.Label>
+                                    <Form.Control type="number" name="phone" value={state.phone} onChange={handleChange} />
+                                </Form.Group>
+                            </Col>
+                        </Row>
+                    
+                        <Button variant="primary" type="submit">Submit</Button>{' '}
+                    </Form>
+                    }
+                </Card>
+            </Col>
         </Container>
     )
 }
