@@ -6,9 +6,7 @@ import "./Search.css";
 function results (data, fullSearch)
     {
       let len = data.length
-      if (fullSearch == '   '){
-        fullSearch = "nothing"
-      }
+      
       
       let searchCards = document.getElementById("demo");
       
