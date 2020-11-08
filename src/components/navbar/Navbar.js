@@ -5,8 +5,15 @@ import { Container, Nav, Navbar } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 import LogoutButton from "./logout-button";
 import LoginButton from "./login-button";
-
+import SearchProfile from "../SearchProfile";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 const MainNav = () => ( 
+  <div>
     <Nav className="mr-auto">
       <Nav.Link
         as={RouterNavLink}
@@ -40,7 +47,21 @@ const MainNav = () => (
       >
         Dashboard
       </Nav.Link>
+      <Nav.Link
+        as={RouterNavLink}
+        to="/SearchProfile"
+        exact
+        activeClassName="router-link-exact-active"
+      >
+        SearchProfile
+      </Nav.Link>
     </Nav>
+    <Switch>
+          <Route path="/SearchProfile">
+            <SearchProfile />
+          </Route>
+        </Switch>
+    </div>
   );
   
   const AuthNav = () => {
