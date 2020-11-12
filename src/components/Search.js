@@ -1,10 +1,10 @@
 import React from 'react'
 import axios from 'axios'
 import { useAuth0 } from "@auth0/auth0-react";
-import Button from 'react-bootstrap/Button';
+//import Button from 'react-bootstrap/Button';
 import "./Search.css";
 import { useHistory } from "react-router-dom";
-
+import { Container, Row, Col, Button, Form, Card } from "react-bootstrap";
 const Search = (props) => {
     const { getAccessTokenSilently } = useAuth0();
     //const token = getAccessTokenSilently();
@@ -57,7 +57,7 @@ const Search = (props) => {
             data.map(res => {
                 let resString = 
                 `<div class="searchData" data-index="${res._id}">
-                <button variant = "link" onClick= ${clickProf()}>${res.first_name} ${res.last_name} - ${res.speciality} in ${res.city}</a>
+                <button variant = "link" onClick= clickProf()>${res.first_name} ${res.last_name} - ${res.speciality} in ${res.city}</a>
                 </div>`;
 
                 searchCards.insertAdjacentHTML("beforeend", resString);}
@@ -81,45 +81,26 @@ const Search = (props) => {
    
     return (
       <div class= "searchResults">
-        <form onSubmit={handleSubmit}>
-            <input type = "text" placeholder="Enter first name" name="first_name" value = {state.first_name} onChange={handleChange} />
-            <input type = "text" placeholder="Enter last name..." name="last_name" value = {state.last_name} onChange={handleChange} />
-            <input type = "text" placeholder="Enter specialization..." name="speciality" value = {state.speciality} onChange={handleChange} />
-            <input type = "text" placeholder="Enter location..." name="city" value = {state.city} onChange={handleChange} />
+        <Form onSubmit={handleSubmit}>
+          <Form.Group>
+              <Form.Label for="first_name">First name:</Form.Label>
+              <Form.Control type="text" name="first_name" value={state.first_name} onChange={handleChange} placeholder="e.g John"/>
+              <br />
+          
+              <Form.Label for="last_name">Last name:</Form.Label>
+              <Form.Control type="text" name="last_name" value={state.last_name} onChange={handleChange} placeholder="e.g Doe"/>
+              <br />
+
+              <Form.Label for="speciality">Specialization</Form.Label>
+              <Form.Control type="text" name="speciality" value={state.speciality} onChange={handleChange} placeholder="e.g dentist"/>
+              <br />
+
+              <Form.Label for="city">Location:</Form.Label>
+              <Form.Control type="text" name="city" value={state.city} onChange={handleChange} placeholder = "e.g Bloomington"/>
+          </Form.Group>
             <Button variant="primary" size="sm" type="submit">Submit</Button>
-        </form>
-        {/*result.data.map(item => (
-          <div id={index}>
-            <Card
-              style={{ width: "25rem", display: "flex", flexDirection: "row" }}
-            >
-              <Card.Img
-                variant="left"
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  width: "50%",
-                  height: "50%",
-                }}
-                src="https://image.freepik.com/free-vector/doctor-icon-avatar-white_136162-58.jpg"
-              />
-              <Card.Body>
-                <Card.Title>
-                  {" "}
-                  {item.firstname} {item.lastname}
-                </Card.Title>
-                <Card.Text> {item.speciality}</Card.Text>
-                <Card.Text> {item.location}</Card.Text>
-                <Button
-                  variant="primary"
-                  onClick={() => handleRouteToProfile(item)}
-                >
-                  View Profile
-                </Button>
-              </Card.Body>
-            </Card>
-          </div>
-              ))*/}
+        </Form>
+        
         <div id = "demo"></div>
         
         </div>

@@ -1,0 +1,23 @@
+.page-footer {
+    background-color: #2C444E;
+    color: white;
+}
+
+  a:link {
+    color: red;
+  }
+  
+  /* visited link */
+  a:visited {
+    color: #0082A9;
+  }
+  
+  /* mouse over link */
+  a:hover {
+    color: #00A4CA;
+  }
+  
+  /* selected link */
+  a:active {
+    color: blue;
+  }

@@ -13,7 +13,7 @@ function Contact() {
             Bloomington, IN
           </span>
           <span>
-            (847) 814 1964
+            
           </span>
           <span>
             j.weickert32@gmail.com
