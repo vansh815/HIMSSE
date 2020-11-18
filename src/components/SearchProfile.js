@@ -4,14 +4,7 @@ import { Form, Row, Col, Container, Button, Jumbotron } from "react-bootstrap";
 class SearchProfile extends Component {
     constructor(props){
         super(props);
-        this.state = {
-            firstname: "",
-            lastname: "",
-            speciality: "",
-            location: "",
-            date: "",
-            time: ""
-        };
+        
     }
 
     handleChange = (event) => {
@@ -87,4 +80,34 @@ class SearchProfile extends Component {
       
     }
 }
+/*
+function SearchProfile(props) {
+  const { user, isLoading } = useAuth0();
+  console.log(props);
+  const location = useLocation();
+
+  useEffect(() => {
+    console.log(location); // result: '/secondpage'
+    //console.log(location.search); // result: '?query=abc'
+    console.log(location.state.details); // result: 'some_value'
+  }, [location]);
+  return (
+    <div>
+      <Jumbotron>
+        <h1>Profile of {location.state.details.first_name} {location.state.details.last_name}</h1>
+        <p>
+          Speciality : {location.state.details.speciality}
+          <br/>
+          City : {location.state.details.city}
+        </p>
+        <p>
+          <Button variant="primary">Learn more</Button>
+        </p>
+      </Jumbotron>
+    </div>
+  );
+}
+
+export default SearchProfile;
+*/
 export default SearchProfile;
