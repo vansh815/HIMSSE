@@ -13,7 +13,8 @@ const Search = (props) => {
         first_name: '',
         last_name: '',
         speciality: '',
-        city: ''
+        city: '',
+        valid:''
       });
     
       const callSecureApi = async (query) => {
@@ -101,10 +102,42 @@ const Search = (props) => {
             <Button variant="primary" size="sm" type="submit">Submit</Button>
         </Form>
         
-        <div id = "demo"></div>
+        <div id = "demo">
+        <Headline value={state} />
+        </div>
         
         </div>
     )
 }
-
+const Headline = ({ value }) =>{
+  return (<Card
+    style={{ width: "25rem", display: "flex", flexDirection: "row" }}
+  >
+    <Card.Img
+      variant="left"
+      style={{
+        display: "flex",
+        flexDirection: "row",
+        width: "50%",
+        height: "50%",
+      }}
+      src="https://image.freepik.com/free-vector/doctor-icon-avatar-white_136162-58.jpg"
+    />
+    <Card.Body>
+      <Card.Title>
+        {" "}
+        {value.first_name} {value.last_name}
+      </Card.Title>
+      <Card.Text> {value.speciality}</Card.Text>
+      <Card.Text> {value.location}</Card.Text>
+      <Button
+        variant="primary"
+        // onClick={() => handleRouteToProfile(item)}
+      >
+        View Profile
+      </Button>
+    </Card.Body>
+  </Card>);
+}
+  
 export default Search

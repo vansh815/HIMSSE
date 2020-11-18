@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Calendar from './Calendar'
-import Search from './Search'
+import Search2 from './Search2'
 
 class Dashboard extends Component {
   constructor(props) {
@@ -40,7 +40,7 @@ class Dashboard extends Component {
             <div className="col-md-8">
               <div className="card">
                 <div className="card-header ">
-                  <Search />
+                  <Search2 />
                 </div>
               </div>
             </div>
