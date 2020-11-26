@@ -13,6 +13,7 @@ export const Home = () => {
     (async () => {
       if(isAuthenticated){
       const token = await getAccessTokenSilently();
+      console.log(token)
       const response = await fetch(`${apiUrl}/user/details`, {method: "GET",headers: {Authorization: `Bearer ${token}`}
       
       }).then((response) => {
@@ -28,6 +29,10 @@ export const Home = () => {
       console.log(data)
       if (!data){
         let path = "/profile"
+        history.push(path)
+      }
+      else{
+        let path = "/dashboard"
         history.push(path)
       }
     })}})(user);

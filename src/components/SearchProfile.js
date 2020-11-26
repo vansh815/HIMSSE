@@ -2,7 +2,9 @@ import React, {Component} from 'react'
 import { Form, Row, Col, Container, Button, Jumbotron } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import axios from 'axios'
 import { useAuth0 } from "@auth0/auth0-react";
+
 
 const SearchProfile = () => {
   const { user, getAccessTokenSilently , isAuthenticated} = useAuth0();
@@ -13,6 +15,7 @@ const SearchProfile = () => {
     last_name: location.state.detail.last_name,
     speciality: location.state.detail.speciality,
     address: location.state.detail.address,
+    doctor_email : location.state.detail.email
   });
 
     const handleChange = (event) => {
@@ -21,12 +24,31 @@ const SearchProfile = () => {
         [event.target.name]: event.target.value,
       });
     };
-
-    const handleSubmit = (event) => { //GET
-      event.preventDefault();
-      alert("Date: " + state.date + 
-      "\nTime: " + state.time);
+    const callSecureApi = async (query) => {
+      const token = await getAccessTokenSilently();
+      const apiUrl = process.env.REACT_APP_API_URL;
+      console.log(query)
+      const searchquery = await axios({
+        headers: {
+            authorization: `Bearer ${token}`
+          },
+        method: 'get',
+        url: `${apiUrl}/booking/details`,
+        params : query
+      })
+      return searchquery
     }
+    const handleSubmit = (event) => { // GET
+      
+      event.preventDefault();
+      let query=  {
+        doctor_email: state.doctor_email,
+      }
+      const searchquery = callSecureApi(query);
+      console.log("here");
+      console.log(searchquery);
+      
+    };
 
     const handleConfirm = (event) => { //POST
       event.preventDefault();
@@ -39,6 +61,7 @@ const SearchProfile = () => {
       state.last_name = location.state.detail.last_name;
       state.speciality = location.state.detail.speciality;
       state.address = location.state.detail.address;
+      state.doctor_email = location.state.detail.email;
     }, [location]);
 
     /*componentDidMount() {
