@@ -20,7 +20,8 @@ const Search2 = (props) => {
   });
   const [divi, setdivi] = useState(null);
   function redirectToProfile(item) {
-    history.push({ pathname: "/searchProfile", state: { details: item } });
+    console.log(item);
+    history.push({ pathname: "/searchProfile", state: { detail: item } });
   }
   const callYourAPI = (e) => {
     getAccessTokenSilently().then((res)=>

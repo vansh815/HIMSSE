@@ -1,24 +1,38 @@
 import React, {Component} from 'react'
 import { Form, Row, Col, Container, Button, Jumbotron } from "react-bootstrap";
+import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
 
-class SearchProfile extends Component {
-    constructor(props){
-        super(props);
-        
-    }
+const SearchProfile = () => {
 
-    handleChange = (event) => {
-      this.setState({
-          ...this.state,
-          [event.target.name]: event.target.value
+  const location = useLocation();
+
+  const [state, setState] = React.useState({
+    first_name: location.state.detail.first_name,
+    last_name: location.state.detail.last_name,
+    speciality: location.state.detail.speciality,
+    address: location.state.detail.address,
+  });
+
+    const handleChange = (event) => {
+      setState({
+        ...state,
+        [event.target.name]: event.target.value,
       });
+    };
+
+    const handleSubmit = (event) => {
+      event.preventDefault();
+      alert("Date: " + state.date + 
+      "\nTime: " + state.time);
     }
 
-    handleSubmit = (event) => {
-      event.preventDefault();
-      alert("Date: " + this.state.date + 
-      "\nTime: " + this.state.time);
-    }
+    useEffect(() => {
+      state.first_name = location.state.detail.first_name;
+      state.last_name = location.state.detail.last_name;
+      state.speciality = location.state.detail.speciality;
+      state.address = location.state.detail.address;
+    }, [location]);
 
     /*componentDidMount() {
         var item = this.props.history.location.state.item;
@@ -30,55 +44,52 @@ class SearchProfile extends Component {
           location: item.location,
         });
       }*/
-    render(){
-        return (
-            <Container>
-              <Jumbotron style={{ backgroundColor: "#65aabf" }}>
-                <Row>
-                  <Col>
-                    <h1>Profile Page</h1>
-                    <p>
-                      First Name : {this.state.firstname}
-                      {""}
-                      <br />
-                      Last Name : {this.state.lastname}
-                      {""}
-                      <br />
-                      Speciality : {this.state.speciality}
-                      <br />
-                      Location : {this.state.location}
-                    </p>
-                  </Col>
+    
+    return (
+        <Container>
+          <Jumbotron style={{ backgroundColor: "#65aabf" }}>
+            <Row>
+              <Col>
+                <h1>Profile Page</h1>
+                <p>
+                  First Name : {state.first_name}
+                  {""}
+                  <br />
+                  Last Name : {state.last_name}
+                  {""}
+                  <br />
+                  Speciality : {state.speciality}
+                  <br />
+                  Location : {state.address}
+                </p>
+              </Col>
 
-                  <Col>
-                    <Form onSubmit={this.handleSubmit}>
-                      <Form.Group>
-                        <Row>
-                          <Form.Label for="date">Date: </Form.Label>
-                          <Form.Control type="date" name="date" value={this.state.date} onChange={this.handleChange} />
-                        </Row>
-                        <br />
-                        <Row>
-                          <Form.Label for="time">Time: </Form.Label>
-                          <Form.Control type="time" step="1800" name="time" value={this.state.time} onChange={this.handleChange} />
-                        </Row>
-                        <br />
-                        <Button variant="dark" type="submit">Submit</Button>{' '}
-                          
-                      </Form.Group>
-                    </Form>
-          
-                    <p>
-                      <Button variant="dark">Book Appointment</Button>
-                    </p>
-                  </Col>
-                </Row>
-              </Jumbotron>
-            </Container>
-          );
-        
+              <Col>
+                <Form onSubmit={handleSubmit}>
+                  <Form.Group>
+                    <Row>
+                      <Form.Label for="date">Date: </Form.Label>
+                      <Form.Control type="date" name="date" value={state.date} onChange={handleChange} />
+                    </Row>
+                    <br />
+                    <Row>
+                      <Form.Label for="time">Time: </Form.Label>
+                      <Form.Control type="time" step="1800" name="time" value={state.time} onChange={handleChange} />
+                    </Row>
+                    <br />
+                    <Button variant="dark" type="submit">Submit</Button>{' '}
+                      
+                  </Form.Group>
+                </Form>
       
-    }
+                <p>
+                  <Button variant="dark">Book Appointment</Button>
+                </p>
+              </Col>
+            </Row>
+          </Jumbotron>
+        </Container>
+      );
 }
 /*
 function SearchProfile(props) {
