@@ -2,9 +2,10 @@ import React, {Component} from 'react'
 import { Form, Row, Col, Container, Button, Jumbotron } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const SearchProfile = () => {
-
+  const { user, getAccessTokenSilently , isAuthenticated} = useAuth0();
   const location = useLocation();
 
   const [state, setState] = React.useState({
@@ -21,10 +22,16 @@ const SearchProfile = () => {
       });
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = (event) => { //GET
       event.preventDefault();
       alert("Date: " + state.date + 
       "\nTime: " + state.time);
+    }
+
+    const handleConfirm = (event) => { //POST
+      event.preventDefault();
+      const appointment = state.date + "/" + state.time;
+      alert(appointment)
     }
 
     useEffect(() => {
@@ -77,13 +84,13 @@ const SearchProfile = () => {
                       <Form.Control type="time" step="1800" name="time" value={state.time} onChange={handleChange} />
                     </Row>
                     <br />
-                    <Button variant="dark" type="submit">Submit</Button>{' '}
+                    <Button variant="dark" type="submit">Book Appointment</Button>{' '}
                       
                   </Form.Group>
                 </Form>
       
                 <p>
-                  <Button variant="dark">Book Appointment</Button>
+                  <Button variant="dark" onClick={handleConfirm}>Confirm Appointment</Button>
                 </p>
               </Col>
             </Row>
