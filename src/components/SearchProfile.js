@@ -52,15 +52,6 @@ const SearchProfile = () => {
 
       searchquery.then(result => { 
         let data = result.data;     
-        // data.map(res => {
-        //     let resString = 
-        //     `<div class="searchData" data-index="${res._id}">
-        //     <button variant = "link" onClick= clickProf()>${res.first_name} ${res.last_name} - ${res.speciality} in ${res.city}</a>
-        //     </div>`;
-
-        //     searchCards.insertAdjacentHTML("beforeend", resString);}
-        //     )
-        // document.getElementById("demo").innerHTML = text; 
 
         const appointment = state.date + "/" + state.time; // user's pending appt
 
@@ -153,34 +144,5 @@ const SearchProfile = () => {
         </Container>
       );
 }
-/*
-function SearchProfile(props) {
-  const { user, isLoading } = useAuth0();
-  console.log(props);
-  const location = useLocation();
 
-  useEffect(() => {
-    console.log(location); // result: '/secondpage'
-    //console.log(location.search); // result: '?query=abc'
-    console.log(location.state.details); // result: 'some_value'
-  }, [location]);
-  return (
-    <div>
-      <Jumbotron>
-        <h1>Profile of {location.state.details.first_name} {location.state.details.last_name}</h1>
-        <p>
-          Speciality : {location.state.details.speciality}
-          <br/>
-          City : {location.state.details.city}
-        </p>
-        <p>
-          <Button variant="primary">Learn more</Button>
-        </p>
-      </Jumbotron>
-    </div>
-  );
-}
-
-export default SearchProfile;
-*/
 export default SearchProfile;
