@@ -34,7 +34,7 @@ const SearchProfile = () => {
           },
         method: 'get',
         url: `${apiUrl}/booking/details`,
-        params : query
+        params: query
       })
       return searchquery
     }
@@ -48,6 +48,38 @@ const SearchProfile = () => {
       console.log("here");
       console.log(searchquery);
       
+      
+
+      searchquery.then(result => { 
+        let data = result.data;     
+        // data.map(res => {
+        //     let resString = 
+        //     `<div class="searchData" data-index="${res._id}">
+        //     <button variant = "link" onClick= clickProf()>${res.first_name} ${res.last_name} - ${res.speciality} in ${res.city}</a>
+        //     </div>`;
+
+        //     searchCards.insertAdjacentHTML("beforeend", resString);}
+        //     )
+        // document.getElementById("demo").innerHTML = text; 
+
+        const appointment = state.date + "/" + state.time; // user's pending appt
+
+        var x = 0;
+        var i;
+        for (i = 0; i < data.length; i++) { // check availability of doctor
+          console.log("Loop Index: " + i);
+          if (data[i] === appointment) {
+            x = 1;
+            alert("Sorry, this time slot is not available. Please choose another time and try again.");
+          }
+        }
+
+        if (x === 0) {
+          alert("This time slot is available! Please click Confirm Appointment to continue.");
+        }
+
+       })
+      .catch(error => { console.error(error); })
     };
 
     const handleConfirm = (event) => { //POST
@@ -107,7 +139,7 @@ const SearchProfile = () => {
                       <Form.Control type="time" step="1800" name="time" value={state.time} onChange={handleChange} />
                     </Row>
                     <br />
-                    <Button variant="dark" type="submit">Book Appointment</Button>{' '}
+                    <Button variant="dark" type="submit">Check Availability</Button>{' '}
                       
                   </Form.Group>
                 </Form>
