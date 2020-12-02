@@ -9,6 +9,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 const SearchProfile = () => {
   const { user, getAccessTokenSilently , isAuthenticated} = useAuth0();
   const location = useLocation();
+  
 
   const [state, setState] = React.useState({
     first_name: location.state.detail.first_name,
@@ -40,25 +41,20 @@ const SearchProfile = () => {
     return searchquery
   }
 
-  const callSecureApiPost = async (query) => {
+  const callSecureApiPost = async (payload) => {
     const token = await getAccessTokenSilently();
     const apiUrl = process.env.REACT_APP_API_URL;
-    console.log(query);
-    fetch(`${apiUrl}/booking/details` , {
-        method : "POST",
-        headers : {
-            "Authorization": `Bearer ${token}`,
-            "Content-Type" : "application/json",
-        },
-        body: query,
-    }).then((response) => {
-        if (!response.ok){
-            console.log("Error");
-        } else{
-            console.log("Success");
-        }
-    });
-};
+    console.log("we are right here ",payload);
+    const searchquery = await fetch(`${apiUrl}/booking/details` , {
+      method : "POST",
+      headers : {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type" : "application/json",
+      },
+      body: JSON.stringify(payload),
+  })
+    return searchquery
+}
 
   const handleSubmit = (event) => { // GET
     event.preventDefault();
@@ -94,16 +90,16 @@ const SearchProfile = () => {
 
   const handleConfirm = (event) => { //POST
     event.preventDefault();
-    const appointment = state.date + "/" + state.time;
+    
 
-    let query = {
+    let payload = {
       doctor_email: state.doctor_email,
-      appointments: appointment
+      appointments: state.date + "/" + state.time ,
     }
 
-    console.log(query);
-    const searchquery = callSecureApiPost(query);
-    console.log("here");
+    
+    const searchquery = callSecureApiPost(payload);
+    console.log("Successful");
     console.log(searchquery);
   }
 
