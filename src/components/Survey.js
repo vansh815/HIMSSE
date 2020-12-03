@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import { useAuth0 } from "@auth0/auth0-react"
+import { Container, Row, Col, Button, Form, Card } from "react-bootstrap"
 
 function Survey() {
     const [state, setState] = React.useState({
@@ -25,17 +26,7 @@ function Survey() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        alert("Symptom1: " + state.symptom1 +
-        "\nSymptom2: " + state.symptom2 +
-        "\nSymptom3: " + state.symptom3 +
-        "\nSymptom4: " + state.symptom4 +
-        "\nSymptom5: " + state.symptom5 +
-        "\nSymptom6: " + state.symptom6 +
-        "\nSymptom7: " + state.symptom7 +
-        "\nSymptom8: " + state.symptom8 +
-        "\nSymptom9: " + state.symptom9 +
-        "\nSymptom10: " + state.symptom10 +
-        "\n\nDiagnosis: " + calculateDiagnosis());
+        alert("\n\nDiagnosis: " + calculateDiagnosis());
 
         setState({
             symptom1: "false",
@@ -70,44 +61,47 @@ function Survey() {
     }
 
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <label>Please indicate if you have experienced any of the following symptoms:</label><br />
+        <Container className="mb-5">
+            <Form onSubmit={handleSubmit}>
+                <Col md="8" className="user-form">
+                    <Form.Label>Please indicate if you have experienced any of the following symptoms:</Form.Label>
+                    <br /><br />
+                    
+                    <Form.Label for="symptom1">  Fever or Chills</Form.Label>
+                    <Form.Control type="checkbox" name="symptom1" value="true" onChange={handleChange} />
+                    <br />
+                    <Form.Label for="symptom2">  Cough</Form.Label>
+                    <Form.Control type="checkbox" name="symptom2" value="true" onChange={handleChange} />
+                    <br />
+                    <Form.Label for="symptom3">  Trouble breathing</Form.Label>
+                    <Form.Control type="checkbox" name="symptom3" value="true" onChange={handleChange} />
+                    <br />
+                    <Form.Label for="symptom4">  Fatigue</Form.Label>
+                    <Form.Control type="checkbox" name="symptom4" value="true" onChange={handleChange} />
+                    <br />
+                    <Form.Label for="symptom5">  Muscle or body aches</Form.Label>
+                    <Form.Control type="checkbox" name="symptom5" value="true" onChange={handleChange} />
+                    <br />
+                    <Form.Label for="symptom6">  Headache</Form.Label>
+                    <Form.Control type="checkbox" name="symptom6" value="true" onChange={handleChange} />
+                    <br />
+                    <Form.Label for="symptom7">  Loss of taste or smell</Form.Label>
+                    <Form.Control type="checkbox" name="symptom7" value="true" onChange={handleChange} />
+                    <br />
+                    <Form.Label for="symptom8">  Sore Throat</Form.Label>
+                    <Form.Control type="checkbox" name="symptom8" value="true" onChange={handleChange} />
+                    <br />
+                    <Form.Label for="symptom9">  Nausea</Form.Label>
+                    <Form.Control type="checkbox" name="symptom9" value="true" onChange={handleChange} />
+                    <br />
+                    <Form.Label for="symptom10">  Diarrhea</Form.Label>
+                    <Form.Control type="checkbox" name="symptom10" value="true" onChange={handleChange} />
+                    <br />
+                    <Button variant="primary" type="submit" value="submit">Submit</Button> 
 
-                <input type="checkbox" name="symptom1" value="true" onChange={handleChange} />
-                <label for="symptom1">  Fever or Chills</label><br />
-                
-                <input type="checkbox" name="symptom2" value="true" onChange={handleChange} />
-                <label for="symptom2">  Cough</label><br />
-
-                <input type="checkbox" name="symptom3" value="true" onChange={handleChange} />
-                <label for="symptom3">  Trouble breathing</label><br />
-
-                <input type="checkbox" name="symptom4" value="true" onChange={handleChange} />
-                <label for="symptom4">  Fatigue</label><br />
-
-                <input type="checkbox" name="symptom5" value="true" onChange={handleChange} />
-                <label for="symptom5">  Muscle or body aches</label><br />
-
-                <input type="checkbox" name="symptom6" value="true" onChange={handleChange} />
-                <label for="symptom6">  Headache</label><br />
-
-                <input type="checkbox" name="symptom7" value="true" onChange={handleChange} />
-                <label for="symptom7">  Loss of taste or smell</label><br />
-
-                <input type="checkbox" name="symptom8" value="true" onChange={handleChange} />
-                <label for="symptom8">  Sore Throat</label><br />
-
-                <input type="checkbox" name="symptom9" value="true" onChange={handleChange} />
-                <label for="symptom9">  Nausea</label><br />
-
-                <input type="checkbox" name="symptom10" value="true" onChange={handleChange} />
-                <label for="symptom10">  Diarrhea</label><br />
-                
-
-                <button type="submit" value="submit">Submit</button> 
-            </form>
-        </div>
+                </Col>
+            </Form>
+        </Container>
     )
 }
 
