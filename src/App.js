@@ -5,7 +5,8 @@ import { useAuth0 } from "@auth0/auth0-react";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { NavBar, Footer, Loading, PrivateRoute } from "./components/navbar";
 import Header from "./components/navbar/landing-page/Header";
-import { Home, Profile, ExternalApi } from "./views";
+import { Home, Profile, ExternalApi, UpcomingAppointments } from "./views";
+//import UpcomingAppointments from './views';
 import Dashboard from './components/Dashboard'
 import UserForm from './views/UserForm'
 import "./App.css";
@@ -26,7 +27,8 @@ const App = () => {
         <Route path="/" exact component={Home} />
           <PrivateRoute path="/dashboard" component={Dashboard} />
           <PrivateRoute path="/profile" component={UserForm} />
-          <PrivateRoute path="/external-api" component={ExternalApi} />
+          {/* <PrivateRoute path="/external-api" component={ExternalApi} /> */}
+          <PrivateRoute path="/external-api" component={UpcomingAppointments} />
         </Switch>
       </div>
       <Footer />
