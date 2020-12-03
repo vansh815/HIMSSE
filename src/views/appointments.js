@@ -3,6 +3,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { Link, useHistory } from "react-router-dom";
 import { Button, ButtonGroup, Container } from "react-bootstrap";
 import { Highlight } from "../components/navbar";
+import axios from 'axios'
 
 const UpcomingAppointments = () => {
     const { user, getAccessTokenSilently , isAuthenticated} = useAuth0();
@@ -12,8 +13,19 @@ const UpcomingAppointments = () => {
       (async () => {
           const token = await getAccessTokenSilently();
           console.log(token)
-          const response =  fetch(`${apiUrl}/appointments/details`, {method: "GET",headers: {Authorization:`Bearer ${token}`}})
-          console.log(response);
+          //const response = fetch(`${apiUrl}/appointments/details`, {method: "GET",headers: {Authorization:`Bearer ${token}`}})
+          //console.log(response);
+
+          const searchquery = await axios({
+            headers: {
+                authorization: `Bearer ${token}`
+              },
+            method: 'get',
+            url: `${apiUrl}/appointments/details`,
+          })
+
+          console.log(searchquery.data[0])
+
           // if (response.body['role'] == "patient"){
           //     const final =  fetch(`${apiUrl}/patient/details`, {method: "GET",headers: {Authorization: `Bearer ${token}`}})
           // }
