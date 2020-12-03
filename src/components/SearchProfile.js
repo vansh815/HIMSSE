@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import axios from 'axios'
 import { useAuth0 } from "@auth0/auth0-react";
+import Survey from './Survey'
 
 
 const SearchProfile = () => {
