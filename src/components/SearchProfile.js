@@ -16,7 +16,8 @@ const SearchProfile = () => {
     last_name: location.state.detail.last_name,
     speciality: location.state.detail.speciality,
     address: location.state.detail.address,
-    doctor_email : location.state.detail.email
+    doctor_email : location.state.detail.email,
+    available: "false"
   });
 
   const handleChange = (event) => {
@@ -73,7 +74,6 @@ const SearchProfile = () => {
       var x = 0;
       var i;
       for (i = 0; i < data.length; i++) { // check availability of doctor
-        console.log("Loop Index: " + i);
         if (data[i] === appointment) {
           x = 1;
           alert("Sorry, this time slot is not available. Please choose another time and try again.");
@@ -81,7 +81,11 @@ const SearchProfile = () => {
       }
 
       if (x === 0) {
-        alert("This time slot is available! Please click Confirm Appointment to continue.");
+        alert("This time slot is available! Please fill out the form and click Confirm Appointment to continue.");
+        setState({
+          ...state,
+          available: "true",
+        });
       }
 
       })
@@ -165,6 +169,7 @@ const SearchProfile = () => {
           </Col>
         </Row>
       </Jumbotron>
+      {state.available == 'true' && <Survey />}
     </Container>
   );
 }
