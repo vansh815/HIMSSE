@@ -31,8 +31,6 @@ const MainNav = () => (
       >
         Profile
       </Nav.Link>
-  
-  /*
       <Nav.Link
         as={RouterNavLink}
         to="/external-api"
@@ -41,8 +39,6 @@ const MainNav = () => (
       >  
         external-api
       </Nav.Link>
-      */
-      
       <Nav.Link
         as={RouterNavLink}
         to="/dashboard"
