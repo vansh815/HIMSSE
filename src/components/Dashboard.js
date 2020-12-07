@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Calendar from './Calendar'
 import Search2 from './Search2'
+import GoogleMap from './GoogleMap'
 
 class Dashboard extends Component {
   constructor(props) {
@@ -34,6 +35,7 @@ class Dashboard extends Component {
                 </div>
                 <div className="calendar-container">
                   <Calendar />
+                  <GoogleMap />
                 </div>
               </div>
             </div>
