@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import './App.css'
+import './GoogleMap.css'
 
 import axios from 'axios'
 
