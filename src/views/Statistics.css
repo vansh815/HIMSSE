@@ -1,0 +1,14 @@
+.charts {
+    margin: 50px;
+    flex-direction: row;
+    align-content: center;
+}
+
+.charts > img {
+    width: 900px;
+    margin: 20px;
+}
+
+.container {
+    text-align: center;
+}
