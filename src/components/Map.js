@@ -4,7 +4,11 @@ import { MdLocationOn } from "react-icons/md"
 
 import './Map.css'
 
-
+const location = {
+  address: 'Bloomington, IN',
+  lat: 39.16659,
+  lng: -86.51656,
+}
 
 
 const LocationPin = ({ text }) => (
@@ -16,10 +20,10 @@ const LocationPin = ({ text }) => (
   </div>
 )
 
-const Map = ({ location, zoomLevel }) => {
+const Map = ({ zoomLevel }) => {
 	return(
   <div className="map">
-    <h2 className="map-h2">Come Visit Us At Our Campus</h2>
+    <h2 className="map-h2">Doctors Near You</h2>
 
     <div className="google-map">
       <GoogleMapReact
@@ -27,23 +31,20 @@ const Map = ({ location, zoomLevel }) => {
         defaultCenter={location}
         defaultZoom={zoomLevel}
       >
-        <LocationPin
-          lat={location.lat}
-          lng={location.lng}
-          text={location.address}
-        />
+
+
 
 
 	    <LocationPin
-          lat={36.1699}
-          lng={-115.1398}
-          text={"pin 3"}
+          lat={39.15905}
+          lng={-86.49868}
+          text={"Vansh Shah, Dentist"}
         />
 
 		<LocationPin
-          lat={39.1653}
-          lng={-86.5264}
-          text={"hiiiii"}
+          lat={39.17413}
+          lng={-86.53444}
+          text={"Ketie Simson, Dentist"}
         />
 
       </GoogleMapReact>
