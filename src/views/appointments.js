@@ -9,12 +9,13 @@ const UpcomingAppointments = () => {
     const { user, getAccessTokenSilently , isAuthenticated} = useAuth0();
     const apiUrl = process.env.REACT_APP_API_URL;
 
+    const [state, setState] = React.useState({
+      appts: ''
+  });
+
     useEffect(() => {
       (async () => {
           const token = await getAccessTokenSilently();
-          console.log(token)
-          //const response = fetch(`${apiUrl}/appointments/details`, {method: "GET",headers: {Authorization:`Bearer ${token}`}})
-          //console.log(response);
 
           const searchquery = await axios({
             headers: {
@@ -24,14 +25,23 @@ const UpcomingAppointments = () => {
             url: `${apiUrl}/appointments/details`,
           })
 
-          console.log(searchquery.data[0])
+          const userEmail = searchquery.data[0].email
 
-          // if (response.body['role'] == "patient"){
-          //     const final =  fetch(`${apiUrl}/patient/details`, {method: "GET",headers: {Authorization: `Bearer ${token}`}})
-          // }
-          // else {
-          //   const final =  fetch(`${apiUrl}/doctor/details`, {method: "GET",headers: {Authorization: `Bearer ${token}`}})
-          // }
+          if (searchquery.data[0].role == "patient") {
+              //const final =  fetch(`${apiUrl}/patient/details`, {method: "GET",headers: {Authorization: `Bearer ${token}`}})
+              const finalQuery = await axios({
+                headers: {
+                    authorization: `Bearer ${token}`,
+                    //email: userEmail
+                  },
+                method: 'get',
+                url: `${apiUrl}/patient/details`,
+              })
+              console.log(finalQuery)
+          }
+          else {
+            const final =  fetch(`${apiUrl}/doctor/details`, {method: "GET",headers: {Authorization: `Bearer ${token}`}})
+          }
 
           
 
@@ -41,12 +51,7 @@ const UpcomingAppointments = () => {
   })
     return (
       <Container className="mb-5">
-        <h1>External API</h1>
-        <p>
-          You use will use a button to call an external API using an access token,
-          and the API will validate it using the API's audience value.{" "}
-          <strong>This route should be private</strong>.
-        </p>
+        
       </Container>
     )
 }

@@ -37,7 +37,7 @@ const MainNav = () => (
         exact
         activeClassName="router-link-exact-active"
       >  
-        external-api
+        Appointments
       </Nav.Link>
       <Nav.Link
         as={RouterNavLink}
@@ -53,7 +53,7 @@ const MainNav = () => (
         exact
         activeClassName="router-link-exact-active"
       >
-        SearchProfile
+        Search
       </Nav.Link>
     </Nav>
     <Switch>
