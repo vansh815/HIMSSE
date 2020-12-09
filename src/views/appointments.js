@@ -30,6 +30,21 @@ const UpcomingAppointments = () => {
     return searchquery
   }
 
+  const callPatientApi = async (query) => {
+    const token = await getAccessTokenSilently();
+    const apiUrl = process.env.REACT_APP_API_URL;
+    const searchquery = await axios({
+      headers: {
+        authorization: `Bearer ${token}`,
+        //email: userEmail
+      },
+    method: 'get',
+    url: `${apiUrl}/patient/details`,
+    params : query,
+    })
+    return searchquery
+  }
+
   useEffect(() => {
     (async () => {
       const token = await getAccessTokenSilently();
@@ -47,16 +62,19 @@ const UpcomingAppointments = () => {
         email : userEmail,
       }
       if (searchquery.data[0].role == "patient") {
-        const finalQuery = await axios({
-          headers: {
-              authorization: `Bearer ${token}`,
-              //email: userEmail
-            },
-          method: 'get',
-          url: `${apiUrl}/patient/details`,
-          params : query,
+        const finalQuery = callPatientApi(query);
+
+        finalQuery.then(result => {
+          const username = result.data[0].first_name
+          apptsList = result.data[0].appointments
+
+          setState({
+            ...state,
+            name: username,
+            appts: apptsList
+          });
         })
-        console.log(finalQuery.data[0])
+        .catch(error => { console.error(error); })
       }
 
       else {

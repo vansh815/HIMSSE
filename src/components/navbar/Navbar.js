@@ -58,16 +58,20 @@ const MainNav = () => (
       <Nav.Link
         as={RouterNavLink}
         to="/chat"
+        exact
         activeClassName="router-link-exact-active"
       >
         Chat
       </Nav.Link>
+      <Nav.Link
+        as={RouterNavLink}
+        to="/stats"
+        exact
+        activeClassName="router-link-exact-active"
+      >
+        Statistics
+      </Nav.Link>
     </Nav>
-    <Switch>
-          <Route path="/SearchProfile">
-            <SearchProfile />
-          </Route>
-        </Switch>
     </div>
   );
   
