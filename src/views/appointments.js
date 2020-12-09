@@ -43,7 +43,9 @@ const UpcomingAppointments = () => {
       })
 
       const userEmail = searchquery.data[0].email
-
+      const query = {
+        email : userEmail,
+      }
       if (searchquery.data[0].role == "patient") {
         const finalQuery = await axios({
           headers: {
@@ -52,6 +54,7 @@ const UpcomingAppointments = () => {
             },
           method: 'get',
           url: `${apiUrl}/patient/details`,
+          params : query,
         })
         console.log(finalQuery.data[0])
       }
