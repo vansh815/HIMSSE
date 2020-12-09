@@ -10,6 +10,7 @@ import { Home, Profile, ExternalApi, UpcomingAppointments, Statistics } from "./
 import Dashboard from './components/Dashboard'
 import UserForm from './views/UserForm'
 import "./App.css";
+import SearchProfile from "./components/SearchProfile";
 
 const App = () => {
   const { isLoading } = useAuth0();
@@ -29,6 +30,7 @@ const App = () => {
           <PrivateRoute path="/profile" component={UserForm} />
           {/* <PrivateRoute path="/external-api" component={ExternalApi} /> */}
           <PrivateRoute path="/external-api" component={UpcomingAppointments} />
+          <PrivateRoute path="/searchProfile" component={SearchProfile} />
           <Route path="/stats" exact component={Statistics} />
         </Switch>
       </div>

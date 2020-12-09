@@ -10,7 +10,7 @@ const Statistics = () => {
 
 
     return (
-        <div className="container">
+        <div className="charts-container">
             <h1>Insurance Statistics</h1>
             <div className="charts">
                 <img src="https://i.imgur.com/LtS1TUF.png" />

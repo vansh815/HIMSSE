@@ -64,11 +64,6 @@ const MainNav = () => (
         Statistics
       </Nav.Link>
     </Nav>
-    <Switch>
-          <Route path="/SearchProfile">
-            <SearchProfile />
-          </Route>
-        </Switch>
     </div>
   );
   
