@@ -12,6 +12,7 @@ import UserForm from './views/UserForm'
 import "./App.css";
 import SearchProfile from "./components/SearchProfile";
 import Chat from "./views/chat/Chat.js";
+import Stats from "./views/Statistics.js";
 
 const App = () => {
   const { isLoading } = useAuth0();
@@ -29,9 +30,10 @@ const App = () => {
           <Route path="/" exact component={Home} />
           <PrivateRoute path="/dashboard" component={Dashboard} />
           <PrivateRoute path="/profile" component={UserForm} />
-          {/* <PrivateRoute path="/external-api" component={ExternalApi} /> */}
+          
           <PrivateRoute path="/external-api" component={UpcomingAppointments} />
-          <PrivateRoute path="/chat" component={Chat} />
+          <PrivateRoute path="/chat" component={Chat}/>
+          <PrivateRoute path="/stats" component={Stats} />
         </Switch>
       </div>
       <Footer />
