@@ -55,6 +55,13 @@ const MainNav = () => (
       >
         Search
       </Nav.Link>
+      <Nav.Link
+        as={RouterNavLink}
+        to="/chat"
+        activeClassName="router-link-exact-active"
+      >
+        Chat
+      </Nav.Link>
     </Nav>
     <Switch>
           <Route path="/SearchProfile">

@@ -30,7 +30,7 @@ const Search2 = (props) => {
         token = res;
         console.log(token)})
         .catch(error => console.log(error));
-    const apiUrl = 'http://localhost:3010';
+    const apiUrl = process.env.REACT_APP_API_URL;
     let query = {
         first_name: state.first_name,
         last_name: state.last_name,

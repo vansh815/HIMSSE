@@ -10,6 +10,7 @@ import { Home, Profile, ExternalApi, UpcomingAppointments } from "./views";
 import Dashboard from './components/Dashboard'
 import UserForm from './views/UserForm'
 import "./App.css";
+import Chat from "./views/chat/Chat.js" ;
 
 const App = () => {
   const { isLoading } = useAuth0();
@@ -29,6 +30,7 @@ const App = () => {
           <PrivateRoute path="/profile" component={UserForm} />
           {/* <PrivateRoute path="/external-api" component={ExternalApi} /> */}
           <PrivateRoute path="/external-api" component={UpcomingAppointments} />
+          <PrivateRoute path="/chat" component={Chat} />
         </Switch>
       </div>
       <Footer />
