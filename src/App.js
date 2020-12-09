@@ -30,10 +30,13 @@ const App = () => {
           <Route path="/" exact component={Home} />
           <PrivateRoute path="/dashboard" component={Dashboard} />
           <PrivateRoute path="/profile" component={UserForm} />
-          
+          {/* <PrivateRoute path="/external-api" component={ExternalApi} /> */}
           <PrivateRoute path="/external-api" component={UpcomingAppointments} />
-          <PrivateRoute path="/chat" component={Chat}/>
+          <PrivateRoute path="/chat" component={Chat} />
           <PrivateRoute path="/stats" component={Stats} />
+          <PrivateRoute path="/searchProfile" component={SearchProfile} />
+          
+
         </Switch>
       </div>
       <Footer />
